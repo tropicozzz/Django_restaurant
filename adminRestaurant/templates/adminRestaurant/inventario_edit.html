@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Ingrediente</title>
+</head>
+<body>
+    <h2>Editar Ingrediente</h2>
+    <form method="post">
+        <input type="hidden" name="id_ingredientes" value="{{ ingrediente.id_ingredientes }}">
+        
+        <label for="costo_ingrediente">Costo del Ingrediente:</label><br>
+        <input type="text" id="costo_ingrediente" name="costo_ingrediente" value="{{ ingrediente.costo_ingrediente }}"><br>
+        
+        <label for="costo_mensual">Costo Mensual:</label><br>
+        <input type="text" id="costo_mensual" name="costo_mensual" value="{{ ingrediente.costo_mensual }}"><br>
+        
+        <button type="submit">Actualizar</button>
+    </form>
+</body>
+</html>

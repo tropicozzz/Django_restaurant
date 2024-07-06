@@ -12,41 +12,69 @@
 <body>
     <link rel="stylesheet" href="{% static 'static/adminRestaurant/css/style.css' %}">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Mi Sitio Web</a>
+        <a class="navbar-brand" href="{% url 'inicio' %}">Staff</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Inicio <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'adminRestaurant/inventario' %}">Inventario</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="inventario.html">Inventario</a>
+                    <a class="nav-link" href="{% url 'adminRestaurant/gastos' %}">Gastos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="gastos.html">Gastos</a>
+                    <a class="nav-link" href="{% url 'adminRestaurant/empleados' %}">Staff</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="empleados.html">Staff</a>
-                
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="inicio.html">Cierre de sesion</a>
+                    <a class="nav-link" href="{% url 'adminRestaurant/inicio' %}">Cierre de sesión</a>
                 </li>
             </ul>
-            <!-- Puedes añadir más elementos a la derecha -->
-
         </div>
     </nav>
+    {% load static %}
 
-    <!-- Contenido de la página -->
-    <div class="container mt-4">
-        <h1>Staff</h1>
-        <p>Empleados y descripcionde labores.</p>
+    <h1>Lista de Empleados</h1><br>
+    <br>
+    
+    <button type="button">
+        <a href="{% url 'empleadosadd' %}">Agregar</a>
+    </button>
+    
+    <div id="idMensajes">
+        {% if mensaje %}
+            {{ mensaje }}
+        {% endif %}
     </div>
-
+    <table>
+        {% if empleados %}
+            <th>ID Empleados</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Labor</th>
+            <th>Eliminar</th>
+            <th>Modificar</th>
+            {% for empleado in empleados %}
+                <tr>
+                    <td>{{ empleado.id_empleados }}</td>
+                    <td>{{ empleado.nombre }}</td>
+                    <td>{{ empleado.apellido }}</td>
+                    <td>{{ empleado.labor }}</td>
+                    <td><a href="{% url 'empleados_del' pk=empleado.id_empleados %}">Eliminar</a></td>
+                    <td><a href="{% url 'empleados_findEdit' pk=empleado.id_empleados %}">Modificar</a></td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </table>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#idMensajes").delay(2000).fadeOut("slow");
+        });
+    </script>
+    
     <!-- Enlaces a los archivos JS de Bootstrap y jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

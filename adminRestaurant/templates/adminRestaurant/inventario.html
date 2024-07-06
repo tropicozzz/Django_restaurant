@@ -9,72 +9,69 @@
 </head>
 <body>
 
+    {% load static %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Mi Sitio Web</a>
+        <a class="navbar-brand" href="{% url 'inicio' %}">Inventario</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Inicio <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'adminRestaurant/inventario' %}">Inventario</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="inventario.html">Inventario</a>
+                    <a class="nav-link" href="{% url 'adminRestaurant/gastos' %}">Gastos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="gastos.html">Gastos</a>
+                    <a class="nav-link" href="{% url 'adminRestaurant/empleados' %}">Staff</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="empleados.html">Staff</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="inicio.html">Cierre de sesion</a>
+                    <a class="nav-link" href="{% url 'adminRestaurant/inicio' %}">Cierre de sesión</a>
                 </li>
             </ul>
-            <!-- Puedes añadir más elementos a la derecha -->
-
         </div>
     </nav>
     {% load static %}
-    
-    <h1> Editar Datos de Alumnos</h1><br>
+
+    <h1>Lista de Inventarios</h1><br>
     <br>
-
+    
     <button type="button">
-        <a href="{% url 'inventarioAdd' %}">Agregar</a>
+        <a href="{% url 'inventarioadd' %}">Agregar</a>
     </button>
-
+    
     <div id="idMensajes">
         {% if mensaje %}
-            {{mensaje}}
+            {{ mensaje }}
         {% endif %}
     </div>
     <table>
-        {% if inventario %}
-            <th>id_alimento</th>
-            <th>Costo ingrediente</th>
-            <th>Costos mensuales</th>
-            {% for x in alumnos %}
+        {% if inventarios %}
+            <th>ID Ingredientes</th>
+            <th>Costo Ingrediente</th>
+            <th>Costo Mensual</th>
+            <th>Eliminar</th>
+            <th>Modificar</th>
+            {% for inventario in inventarios %}
                 <tr>
-                    <td> {{ x.rut }}
-                    <td> {{ x.nombre }}
-                    <td> {{ x.apellido_paterno }}
-                    <td> <a href="{% url 'alumnos_del'  pk=x.rut %}">Eliminar</a>
-                    <td> <a href="{% url 'alumnos_findEdit' pk=x.rut %}">Modificar</a>
-
+                    <td>{{ inventario.id_ingredientes }}</td>
+                    <td>{{ inventario.costo_ingrediente }}</td>
+                    <td>{{ inventario.costo_mensual }}</td>
+                    <td><a href="{% url 'inventario_del' pk=inventario.id_ingredientes %}">Eliminar</a></td>
+                    <td><a href="{% url 'inventario_findEdit' pk=inventario.id_ingredientes %}">Modificar</a></td>
                 </tr>
             {% endfor %}
         {% endif %}
     </table>
-
+    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
             $("#idMensajes").delay(2000).fadeOut("slow");
         });
     </script>
+    
     <!-- Enlaces a los archivos JS de Bootstrap y jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
